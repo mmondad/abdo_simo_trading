@@ -1,0 +1,63 @@
+{
+  "rank": 6,
+  "id": "chuk_orb_mnq",
+  "name": "Chuk MNQ opening-range breakout",
+  "family_id": "opening_range_breakout",
+  "instrument": "MNQ",
+  "instrument_source_match": "DIRECT_TEST_OR_AUTHOR_REBUILD",
+  "source": {
+    "title": "Regime-Dependent Opening Range Breakout Returns in Nasdaq-100 Futures",
+    "authors": "Chuk",
+    "year": 2026,
+    "type": "Author working paper",
+    "url": "https://justinchuktrading.com/papers/orb_paper.pdf",
+    "source_markets": "NQ original series; MNQ author rebuild"
+  },
+  "session": "09:30–14:00 America/New_York; flat at the 14:00 open",
+  "timezone": "America/New_York",
+  "timeframe": "M5 signal / M1 fill",
+  "max_holding_duration": "up to ~4 h",
+  "mandatory_same_session_close": "Exit at stop, target, or at 13:55 bar close / 14:00 open, whichever comes first.",
+  "max_new_entries_per_day": 1,
+  "max_entry_rule_origin": "Selected research specification; one initial entry, no same-day re-entry. This cap is not an observed frequency.",
+  "observed_trade_frequency": "NOT REPORTED for this exact selected specification",
+  "source_rules": {
+    "indicator": "Frozen 30-minute range, 0.85% filter, first 5-minute close above high, next-bar entry, 1:1 bracket, 14:00 flat.",
+    "buy": "After 10:00, first five-minute bar closing above the 09:30–10:00 high; enter long at next bar open. Skip if range/10:00 price >0.85%, FOMC decision days and exchange holidays.",
+    "sell_short": "NONE; long-only opening-range rule.",
+    "exit": "Exit at stop, target, or at 13:55 bar close / 14:00 open, whichever comes first.",
+    "stop_loss": "Opening-range low.",
+    "take_profit": "Entry plus (entry minus opening-range low), 1:1 reward/risk.",
+    "position_sizing": "One MNQ contract in 2020–July 2026 rebuild.",
+    "cost_treatment": "Rebuild assumes $2 round trip, with entry/stop slippage treatment documented separately; independent live fill validation is incomplete."
+  },
+  "source_reported_performance": "Author-reported MNQ rebuild: 754 trades, $17.83 net per trade, 57% win; original NQ 2010–2019 interval was −$2.29/trade, 2020–2026 +$129.20/trade; no untouched OOS.",
+  "source_sample": "NQ study 2010–July 2026; executable MNQ rebuild 2020–July 2026. All intervals used in selection are in-sample.",
+  "independent_backtest_status": "NONE_IN_REPOSITORY",
+  "independent_evidence_note": "NOT VERIFIED",
+  "known_risks": "Regime break around 2020, multiple testing, no independent OOS, stop fill slippage.",
+  "data_requirements": "Dated MNQ one-minute OHLCV, 5-minute aggregation, exchange calendar, FOMC calendar, contract roll metadata, and fill-cost schedule.",
+  "proposed_adaptations_not_source_validated": "Freeze exclusion list before test and use prior-day volume to select active contract; audit same-bar stop/target ordering; forward-test untouched dates.",
+  "research_score": {
+    "total_100": 65,
+    "weights": {
+      "evidence_25": 25,
+      "net_after_costs_20": 20,
+      "intraday_rules_20": 20,
+      "risk_15": 15,
+      "data_10": 10,
+      "regime_10": 10
+    },
+    "components": {
+      "evidence_25": 13,
+      "net_after_costs_20": 13,
+      "intraday_rules_20": 19,
+      "risk_15": 7,
+      "data_10": 9,
+      "regime_10": 4
+    },
+    "meaning": "Research priority judgment; not probability of profitability"
+  },
+  "evidence_status": "Author reconstruction after stated fees; no untouched OOS",
+  "implementation_status": "RESEARCHED_NOT_BACKTESTED"
+}

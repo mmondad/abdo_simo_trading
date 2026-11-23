@@ -1,0 +1,176 @@
+{
+  "schema_version": "0.1.0",
+  "strategy_id": "ema-rsi-confirmation",
+  "variant_id": "baseline-v1",
+  "metadata": {
+    "name": "EMA Crossover with RSI Confirmation",
+    "paper_id": "synthetic-demo-001",
+    "paper_reference": {
+      "type": "synthetic_example",
+      "note": "Demonstration strategy created to test the Trading DSL; it is not extracted from a paper."
+    },
+    "provenance": [
+      {
+        "path": "/indicators",
+        "category": "EXPLICIT",
+        "note": "Indicator settings were explicitly selected for this validation example."
+      },
+      {
+        "path": "/signals",
+        "category": "EXPLICIT",
+        "note": "Signal logic was explicitly selected for this validation example."
+      },
+      {
+        "path": "/risk",
+        "category": "EXPLICIT",
+        "note": "Risk levels and execution rules were explicitly selected for this validation example."
+      }
+    ]
+  },
+  "market": {
+    "base_timeframe": "1h",
+    "asset_class": "fx",
+    "instrument_hint": "EURUSD"
+  },
+  "indicators": [
+    {
+      "id": "ema_fast",
+      "type": "EMA",
+      "parameters": {
+        "period": 20
+      },
+      "source": "close",
+      "timeframe": "1h"
+    },
+    {
+      "id": "ema_slow",
+      "type": "EMA",
+      "parameters": {
+        "period": 50
+      },
+      "source": "close",
+      "timeframe": "1h"
+    },
+    {
+      "id": "rsi_14",
+      "type": "RSI",
+      "parameters": {
+        "period": 14
+      },
+      "source": "close",
+      "timeframe": "1h"
+    }
+  ],
+  "signals": {
+    "long": {
+      "entry": {
+        "operator": "all",
+        "operands": [
+          {
+            "operator": "crosses_above",
+            "operands": [
+              {
+                "indicator_ref": "ema_fast"
+              },
+              {
+                "indicator_ref": "ema_slow"
+              }
+            ]
+          },
+          {
+            "operator": "lt",
+            "operands": [
+              {
+                "indicator_ref": "rsi_14"
+              },
+              {
+                "constant": 70
+              }
+            ]
+          }
+        ]
+      },
+      "exit": {
+        "operator": "crosses_below",
+        "operands": [
+          {
+            "indicator_ref": "ema_fast"
+          },
+          {
+            "indicator_ref": "ema_slow"
+          }
+        ]
+      },
+      "stop_loss": {
+        "value": 1,
+        "unit": "percentage"
+      },
+      "take_profit": {
+        "value": 2,
+        "unit": "percentage"
+      }
+    },
+    "short": {
+      "entry": {
+        "operator": "all",
+        "operands": [
+          {
+            "operator": "crosses_below",
+            "operands": [
+              {
+                "indicator_ref": "ema_fast"
+              },
+              {
+                "indicator_ref": "ema_slow"
+              }
+            ]
+          },
+          {
+            "operator": "gt",
+            "operands": [
+              {
+                "indicator_ref": "rsi_14"
+              },
+              {
+                "constant": 30
+              }
+            ]
+          }
+        ]
+      },
+      "exit": {
+        "operator": "crosses_above",
+        "operands": [
+          {
+            "indicator_ref": "ema_fast"
+          },
+          {
+            "indicator_ref": "ema_slow"
+          }
+        ]
+      },
+      "stop_loss": {
+        "value": 1,
+        "unit": "percentage"
+      },
+      "take_profit": {
+        "value": 2,
+        "unit": "percentage"
+      }
+    }
+  },
+  "risk": {
+    "position_sizing": {
+      "type": "fixed_fraction",
+      "fraction": 0.01
+    },
+    "max_simultaneous_positions": 1,
+    "pyramiding": false,
+    "hedging": false,
+    "execution": {
+      "signal_timing": "completed_candle",
+      "order_timing": "next_eligible_opportunity"
+    }
+  },
+  "assumptions": []
+}

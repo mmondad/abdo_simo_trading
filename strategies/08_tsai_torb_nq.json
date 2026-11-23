@@ -1,0 +1,65 @@
+{
+  "rank": 8,
+  "id": "tsai_torb_nq",
+  "name": "Tsai NQ timely opening-range breakout",
+  "family_id": "opening_range_breakout",
+  "instrument": "NQ",
+  "instrument_source_match": "DIRECT_TEST_OR_AUTHOR_REBUILD",
+  "source": {
+    "title": "Assessing the Profitability of Timely Opening Range Breakout on Index Futures Markets",
+    "authors": "Tsai et al.",
+    "year": 2019,
+    "type": "IEEE Access journal article",
+    "url": "https://doi.org/10.1109/ACCESS.2019.2899177",
+    "doi": "10.1109/ACCESS.2019.2899177",
+    "source_markets": "NQ and YM futures directly tested"
+  },
+  "session": "Underlying US cash-market open to close; historical paper aligns to 09:30–16:00 America/New_York",
+  "timezone": "America/New_York",
+  "timeframe": "M1",
+  "max_holding_duration": "up to 6.5 h",
+  "mandatory_same_session_close": "Close any open position at underlying cash-market close on that date.",
+  "max_new_entries_per_day": 1,
+  "max_entry_rule_origin": "Selected research specification; one initial entry, no same-day re-entry. This cap is not an observed frequency.",
+  "observed_trade_frequency": "NOT REPORTED for this exact selected specification",
+  "source_rules": {
+    "indicator": "Probe high/low from first 1 or 4 minutes; first later cross gives direction; exit at active-hours end.",
+    "buy": "After the one-minute opening probe, first price above the fixed probe high: buy once.",
+    "sell_short": "After the one-minute opening probe, first price below the fixed probe low: sell short once.",
+    "exit": "Close any open position at underlying cash-market close on that date.",
+    "stop_loss": "NOT SPECIFIED",
+    "take_profit": "NOT SPECIFIED",
+    "position_sizing": "NOT SPECIFIED; one fixed contract for backtest is a proposal, not paper rule.",
+    "cost_treatment": "Author assumes 0.01% transaction cost per trade; not an exchange quote/fill model."
+  },
+  "source_reported_performance": "Author-reported NQ 1-minute probe: 17.51% annual return after assumed cost, 3,099 transactions, p=0.3%; no independent untouched OOS.",
+  "source_sample": "NQ 2001–2013 in paper; probe minute optimized on full sample.",
+  "independent_backtest_status": "NONE_IN_REPOSITORY",
+  "independent_evidence_note": "NOT VERIFIED",
+  "known_risks": "Full-sample parameter selection, 1-minute fill sensitivity, no stop specified.",
+  "data_requirements": "Dated one-minute US index futures OHLC and preferably bid/ask, accurate cash-session calendar and contract roll metadata.",
+  "proposed_adaptations_not_source_validated": "First signal wins and no reversal/re-entry; choose next available executable price to avoid same-bar lookahead; use contract-specific tick/fee/slippage model. These are implementation choices.",
+  "research_score": {
+    "total_100": 61,
+    "weights": {
+      "evidence_25": 25,
+      "net_after_costs_20": 20,
+      "intraday_rules_20": 20,
+      "risk_15": 15,
+      "data_10": 10,
+      "regime_10": 10
+    },
+    "components": {
+      "evidence_25": 15,
+      "net_after_costs_20": 11,
+      "intraday_rules_20": 17,
+      "risk_15": 5,
+      "data_10": 8,
+      "regime_10": 5
+    },
+    "meaning": "Research priority judgment; not probability of profitability"
+  },
+  "evidence_status": "Peer-reviewed; selected probe and assumed cost",
+  "implementation_status": "RESEARCHED_NOT_BACKTESTED",
+  "special_case": "First signal wins and no re-entry is a selected specification cap; source profit does not validate this implementation choice separately."
+}

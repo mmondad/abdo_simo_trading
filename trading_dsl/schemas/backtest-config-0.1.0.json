@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/trading-dsl/backtest-config-0.1.0.json",
+  "type": "object", "additionalProperties": false,
+  "required": ["config_version", "instrument", "date_range", "data", "account", "costs", "execution", "instrument_spec", "position_limits", "data_quality"],
+  "properties": {
+    "config_version": {"const": "0.1.0"}, "instrument": {"type": "string", "minLength": 1},
+    "date_range": {"type": "object", "required": ["start", "end"], "properties": {"start": {"type": "string", "format": "date-time"}, "end": {"type": "string", "format": "date-time"}}, "additionalProperties": false},
+    "data": {"type": "object", "required": ["source", "timezone"], "properties": {"source": {"type": "string"}, "timezone": {"type": "string"}}, "additionalProperties": false},
+    "account": {"type": "object", "required": ["initial_capital", "currency", "position_sizing"], "properties": {"initial_capital": {"type": "number", "exclusiveMinimum": 0}, "currency": {"type": "string"}, "position_sizing": {"type": "object"}}, "additionalProperties": false},
+    "costs": {"type": "object", "properties": {"spread": {"type": "number", "minimum": 0}, "commission": {"type": "number", "minimum": 0}, "slippage": {"type": "number", "minimum": 0}, "other": {"type": "array", "items": {"type": "object"}}}, "additionalProperties": false},
+    "execution": {"type": "object"}, "instrument_spec": {"type": "object"}, "position_limits": {"type": "object"}, "data_quality": {"type": "object"}
+  }
+}

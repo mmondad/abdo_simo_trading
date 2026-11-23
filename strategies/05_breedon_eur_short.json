@@ -1,0 +1,64 @@
+{
+  "rank": 5,
+  "id": "breedon_eur_short",
+  "name": "Breedon EURUSD Europe-open short",
+  "family_id": "breedon_fx_clock",
+  "instrument": "EURUSD",
+  "instrument_source_match": "DIRECT_TEST_OR_AUTHOR_REBUILD",
+  "source": {
+    "title": "Intraday Patterns in FX Returns and Order Flow",
+    "authors": "Breedon; Ranaldo",
+    "year": 2013,
+    "type": "Journal of Money, Credit and Banking; 2011 SNB working-paper text",
+    "url": "https://www.snb.ch/public/asset/en/www-snb-ch/publications/research/working-papers/2011/working_paper_2011_04/publications0_en/working_paper_2011_04.n.pdf",
+    "doi": "10.1111/jmcb.12032",
+    "source_markets": "EBS EURUSD spot FX"
+  },
+  "session": "07:00 Europe/London to 08:00 America/New_York; two-zone DST conversion required",
+  "timezone": "America/New_York and Europe/London",
+  "timeframe": "H1 boundary / M1 execution",
+  "max_holding_duration": "5–7 h depending on London/New York DST; maximum 7 h",
+  "mandatory_same_session_close": "Cover at the US local-session opening, 08:00 America/New_York on the same date.",
+  "max_new_entries_per_day": 1,
+  "max_entry_rule_origin": "Selected research specification; one initial entry, no same-day re-entry. This cap is not an observed frequency.",
+  "observed_trade_frequency": "NOT REPORTED for this exact selected specification",
+  "source_rules": {
+    "indicator": "Fixed local clock session; no signal indicator beyond calendar time.",
+    "buy": "NONE; short-only Europe-session rule.",
+    "sell_short": "Short EURUSD at 07:00 Europe/London.",
+    "exit": "Cover at the US local-session opening, 08:00 America/New_York on the same date.",
+    "stop_loss": "NOT SPECIFIED",
+    "take_profit": "NOT SPECIFIED",
+    "position_sizing": "NOT SPECIFIED; fixed notional for replication is a proposal.",
+    "cost_treatment": "Authors use EBS firm bid/ask; retail broker spread and slippage untested."
+  },
+  "source_reported_performance": "Author-reported annualized trading return 0.06 (6%) and Sharpe 1.3 after EBS spread; no independent recent replication verified.",
+  "source_sample": "EBS spot FX 1997–2007; EUR/DM predecessor handling must be audited in data replication.",
+  "independent_backtest_status": "NONE_IN_REPOSITORY",
+  "independent_evidence_note": "NOT VERIFIED",
+  "known_risks": "Old interdealer sample; local daylight changes and retail costs.",
+  "data_requirements": "EURUSD spot tick or M1 bid/ask history and both Europe/London and America/New_York daylight-saving calendars.",
+  "proposed_adaptations_not_source_validated": "Skip bank holidays only if predeclared, use broker quotes for the intended venue, no synthetic 5pm FX day boundary, one entry maximum. Test any protective stop separately.",
+  "research_score": {
+    "total_100": 66,
+    "weights": {
+      "evidence_25": 25,
+      "net_after_costs_20": 20,
+      "intraday_rules_20": 20,
+      "risk_15": 15,
+      "data_10": 10,
+      "regime_10": 10
+    },
+    "components": {
+      "evidence_25": 18,
+      "net_after_costs_20": 11,
+      "intraday_rules_20": 17,
+      "risk_15": 6,
+      "data_10": 9,
+      "regime_10": 5
+    },
+    "meaning": "Research priority judgment; not probability of profitability"
+  },
+  "evidence_status": "Journal study, old EBS bid/ask sample",
+  "implementation_status": "RESEARCHED_NOT_BACKTESTED"
+}

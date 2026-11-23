@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/trading-dsl/strategy-0.1.0.json",
+  "title": "Trading Strategy DSL 0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "strategy_id", "variant_id", "metadata", "market", "indicators", "signals", "risk", "assumptions"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "strategy_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$"},
+    "variant_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$"},
+    "metadata": {
+      "type": "object", "additionalProperties": true,
+      "required": ["name", "paper_id", "provenance"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1}, "paper_id": {"type": "string", "minLength": 1},
+        "paper_reference": {"type": "object"},
+        "provenance": {"type": "array", "items": {"$ref": "#/$defs/provenance"}}
+      }
+    },
+    "market": {
+      "type": "object", "additionalProperties": false, "required": ["base_timeframe"],
+      "properties": {"base_timeframe": {"type": "string"}, "asset_class": {"type": "string"}, "instrument_hint": {"type": "string"}}
+    },
+    "indicators": {"type": "array", "items": {"$ref": "#/$defs/indicator"}},
+    "signals": {
+      "type": "object", "additionalProperties": false, "minProperties": 1,
+      "properties": {"long": {"$ref": "#/$defs/direction"}, "short": {"$ref": "#/$defs/direction"}}
+    },
+    "risk": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "position_sizing": {"type": "object"}, "max_simultaneous_positions": {"type": "integer", "minimum": 1},
+        "pyramiding": {"type": "boolean"}, "hedging": {"type": "boolean"},
+        "execution": {"type": "object"}
+      }
+    },
+    "assumptions": {"type": "array", "items": {"$ref": "#/$defs/assumption"}}
+  },
+  "$defs": {
+    "provenance": {
+      "type": "object", "additionalProperties": false, "required": ["path", "category"],
+      "properties": {"path": {"type": "string"}, "category": {"enum": ["EXPLICIT", "DERIVED", "ASSUMED", "MODIFIED", "UNRESOLVED"]}, "source_reference": {"type": "object"}, "note": {"type": "string"}}
+    },
+    "assumption": {
+      "type": "object", "additionalProperties": false,
+      "required": ["target_path", "value", "rule_id", "registry_version", "reason", "missing_information"],
+      "properties": {"target_path": {"type": "string"}, "value": {}, "rule_id": {"type": "string"}, "registry_version": {"type": "string"}, "reason": {"type": "string"}, "missing_information": {"type": "string"}}
+    },
+    "indicator": {
+      "type": "object", "additionalProperties": false, "required": ["id", "type", "parameters"],
+      "properties": {"id": {"type": "string", "minLength": 1}, "type": {"type": "string", "minLength": 1}, "parameters": {"type": "object"}, "source": {"enum": ["open", "high", "low", "close", "volume"]}, "timeframe": {"type": "string"}, "output": {"type": "string"}}
+    },
+    "direction": {
+      "type": "object", "additionalProperties": false, "required": ["entry"],
+      "properties": {"entry": {"$ref": "#/$defs/expression"}, "exit": {"$ref": "#/$defs/expression"}, "stop_loss": {"$ref": "#/$defs/riskLevel"}, "take_profit": {"$ref": "#/$defs/riskLevel"}}
+    },
+    "riskLevel": {
+      "type": "object", "additionalProperties": false, "required": ["value", "unit"],
+      "properties": {"value": {"type": "number", "exclusiveMinimum": 0}, "unit": {"enum": ["pips", "points", "percentage", "absolute_price", "atr_multiple"]}, "indicator_id": {"type": "string"}}
+    },
+    "expression": {
+      "oneOf": [
+        {"type": "object", "additionalProperties": false, "required": ["operator", "operands"], "properties": {"operator": {"type": "string"}, "operands": {"type": "array", "items": {"$ref": "#/$defs/expression"}}, "periods": {"type": "integer", "minimum": 1}}},
+        {"type": "object", "additionalProperties": false, "required": ["indicator_ref"], "properties": {"indicator_ref": {"type": "string"}, "output": {"type": "string"}, "offset": {"type": "integer", "minimum": 0}}},
+        {"type": "object", "additionalProperties": false, "required": ["price_ref"], "properties": {"price_ref": {"enum": ["open", "high", "low", "close", "volume"]}, "offset": {"type": "integer", "minimum": 0}, "timeframe": {"type": "string"}}},
+        {"type": "object", "additionalProperties": false, "required": ["constant"], "properties": {"constant": {"type": ["number", "boolean"]}}},
+        {"type": "object", "additionalProperties": false, "required": ["pattern"], "properties": {"pattern": {"type": "string"}, "offset": {"type": "integer", "minimum": 0}, "timeframe": {"type": "string"}}}
+      ]
+    }
+  }
+}

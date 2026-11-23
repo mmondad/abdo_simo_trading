@@ -1,0 +1,7 @@
+{
+  "schema_version": "0.1.0", "strategy_id": "paper-rsi.threshold", "variant_id": "original",
+  "metadata": {"name": "RSI threshold", "paper_id": "paper-rsi", "provenance": []}, "market": {"base_timeframe": "15m"},
+  "indicators": [{"id": "rsi", "type": "RSI", "parameters": {"period": 14}, "source": "close", "timeframe": "15m"}],
+  "signals": {"long": {"entry": {"operator": "lt", "operands": [{"indicator_ref": "rsi"}, {"constant": 30}]}, "exit": {"operator": "gt", "operands": [{"indicator_ref": "rsi"}, {"constant": 50}]}}, "short": {"entry": {"operator": "gt", "operands": [{"indicator_ref": "rsi"}, {"constant": 70}]}, "exit": {"operator": "lt", "operands": [{"indicator_ref": "rsi"}, {"constant": 50}]}}},
+  "risk": {}, "assumptions": []
+}

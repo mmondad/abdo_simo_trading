@@ -1,0 +1,8 @@
+{
+  "schema_version": "0.1.0", "strategy_id": "paper-ema.crossover", "variant_id": "original",
+  "metadata": {"name": "EMA crossover", "paper_id": "paper-ema", "provenance": [{"path": "/signals/long", "category": "EXPLICIT", "source_reference": {"page": 4, "section": "Rules"}}]},
+  "market": {"base_timeframe": "1h"},
+  "indicators": [{"id": "fast", "type": "EMA", "parameters": {"period": 20}, "source": "close", "timeframe": "1h"}, {"id": "slow", "type": "EMA", "parameters": {"period": 50}, "source": "close", "timeframe": "1h"}],
+  "signals": {"long": {"entry": {"operator": "crosses_above", "operands": [{"indicator_ref": "fast", "offset": 0}, {"indicator_ref": "slow", "offset": 0}]}, "exit": {"operator": "crosses_below", "operands": [{"indicator_ref": "fast"}, {"indicator_ref": "slow"}]}}},
+  "risk": {"max_simultaneous_positions": 1, "pyramiding": false, "hedging": false}, "assumptions": []
+}

@@ -1,0 +1,64 @@
+{
+  "rank": 10,
+  "id": "fed_odplus_es",
+  "name": "Fed early-Globex ES fixed-window long",
+  "family_id": "early_globex_clock",
+  "instrument": "ES",
+  "instrument_source_match": "DIRECT_TEST_OR_AUTHOR_REBUILD",
+  "source": {
+    "title": "The Overnight Drift",
+    "authors": "Boyarchenko; Larsen; Whelan",
+    "year": 2022,
+    "type": "New York Fed Staff Report 917 (revised 2022)",
+    "url": "https://www.newyorkfed.org/medialibrary/media/research/staff_reports/sr917.pdf",
+    "source_markets": "ES futures"
+  },
+  "session": "01:30–03:30 America/New_York, within one Globex session",
+  "timezone": "America/New_York",
+  "timeframe": "M1",
+  "max_holding_duration": "2 h",
+  "mandatory_same_session_close": "Sell/flatten at 03:30 Eastern time the same Globex session.",
+  "max_new_entries_per_day": 1,
+  "max_entry_rule_origin": "Selected research specification; one initial entry, no same-day re-entry. This cap is not an observed frequency.",
+  "observed_trade_frequency": "NOT REPORTED",
+  "source_rules": {
+    "indicator": "Fixed Eastern local clock; no price indicator for OD+.",
+    "buy": "Buy one ES futures position at 01:30 Eastern time on eligible trading dates.",
+    "sell_short": "No short signal in simple OD+ rule.",
+    "exit": "Sell/flatten at 03:30 Eastern time the same Globex session.",
+    "stop_loss": "Not specified by paper.",
+    "take_profit": "No target; fixed two-hour exit.",
+    "position_sizing": "Source compares one-dollar investment; futures contract sizing and margin budget not specified.",
+    "cost_treatment": "Table IX(b) uses best ask/bid quote spread; brokerage fees, impact and full retail fill uncertainty remain."
+  },
+  "source_reported_performance": "Table IX(b) simple OD+ annualized mean 1.91% and Sharpe 0.26 after bid/ask, 2004–2020. Shorter OD 02:00–03:00 has net Sharpe −0.54; BtD requires order-flow data and is a different conditional variant.",
+  "source_sample": "January 2004–December 2020",
+  "independent_backtest_status": "NONE_IN_REPOSITORY",
+  "independent_evidence_note": "No independent current-market replication identified; positive net result is small and likely vulnerable to extra costs.",
+  "known_risks": "Night-time liquidity and macro/European-open shocks; no stop; daylight-saving sensitivity; margin/roll and spread.",
+  "data_requirements": "Dated ES bid/ask or tick/M1 quotes around 01:30 and 03:30 ET, Globex calendar, holiday/DST and roll metadata.",
+  "proposed_adaptations_not_source_validated": "Trade only if the dated contract has an uninterrupted 01:30–03:30 session; one position maximum; fixed contract size and any stop are new, untested rules.",
+  "research_score": {
+    "total_100": 56,
+    "weights": {
+      "evidence_25": 25,
+      "net_after_costs_20": 20,
+      "intraday_rules_20": 20,
+      "risk_15": 15,
+      "data_10": 10,
+      "regime_10": 10
+    },
+    "components": {
+      "evidence_25": 18,
+      "net_after_costs_20": 5,
+      "intraday_rules_20": 18,
+      "risk_15": 4,
+      "data_10": 8,
+      "regime_10": 3
+    },
+    "meaning": "Research priority judgment; not probability of profitability"
+  },
+  "evidence_status": "Institutional paper; small positive after-spread result",
+  "implementation_status": "RESEARCHED_NOT_BACKTESTED",
+  "special_case": "This clock window is early morning but starts and ends within one Globex session; do not carry through maintenance break."
+}

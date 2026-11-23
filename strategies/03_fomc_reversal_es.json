@@ -1,0 +1,65 @@
+{
+  "rank": 3,
+  "id": "fomc_reversal_es",
+  "name": "FOMC pre-announcement reversal ES",
+  "family_id": "fomc_event_reversal",
+  "instrument": "ES",
+  "instrument_source_match": "DIRECT_TEST_OR_AUTHOR_REBUILD",
+  "source": {
+    "title": "The FOMC Announcement Reversal",
+    "authors": "Baglioni; Ribeiro",
+    "year": 2022,
+    "type": "SSRN working paper; accessible chapter in 2023 Insper thesis",
+    "url": "https://repositorio-api.insper.edu.br/server/api/core/bitstreams/fb55a5bb-06c8-4ed4-aa81-054742c3b42d/content",
+    "doi": "10.2139/ssrn.4182628",
+    "source_markets": "ES futures"
+  },
+  "session": "Scheduled FOMC day, usual 13:50–15:50 paper clock; eight historical 12:30 releases use 12:15 entry and 14:15 exit",
+  "timezone": "America/New_York",
+  "timeframe": "M1",
+  "max_holding_duration": "2 h",
+  "mandatory_same_session_close": "Close two hours later using opposing bid/ask, before the cash close; zero-return treatment not stated.",
+  "max_new_entries_per_day": 1,
+  "max_entry_rule_origin": "Selected research specification; one initial entry, no same-day re-entry. This cap is not an observed frequency.",
+  "observed_trade_frequency": "FOMC event count, not daily average",
+  "source_rules": {
+    "indicator": "Prior 24-hour ES return at the paper pre-release entry minute: mid_t / mid_at_same_clock_previous_day − 1.",
+    "buy": "On scheduled FOMC day, buy ES at ask if prior 24-hour return is negative.",
+    "sell_short": "On scheduled FOMC day, sell ES at bid if prior 24-hour return is positive.",
+    "exit": "Close two hours later using opposing bid/ask, before the cash close; zero-return treatment not stated.",
+    "stop_loss": "Not specified by paper.",
+    "take_profit": "No target; fixed two-hour exit.",
+    "position_sizing": "Notional/contract sizing and max loss are not specified.",
+    "cost_treatment": "Original uses ask for buys and bid for sells at minute-close observations; explicitly ignores broker fees and market impact."
+  },
+  "source_reported_performance": "Table 1.2: 180 events, mean 17.86 basis points per event after bid/ask, annualized event Sharpe 1.02; Table 1.8 109 early events mean 14.30 bp, Table 1.9 71 later events mean 23.34 bp. These are author subsamples, not untouched OOS.",
+  "source_sample": "September 1997–January 2020, 180 scheduled FOMC events",
+  "independent_backtest_status": "NONE_IN_REPOSITORY",
+  "independent_evidence_note": "No independent or post-2020 test; source-period splits do not count as independent OOS.",
+  "known_risks": "Announcement jumps, rapid quote changes, order rejection/impact, no protective stop; high event concentration.",
+  "data_requirements": "Exact-dated ES M1 bid/ask or tick quotes, scheduled FOMC timestamps, historical release-time exceptions, exchange/DST calendar and contract roll.",
+  "proposed_adaptations_not_source_validated": "Resolve source EST/ET wording against each historic FOMC timestamp; skip zero-return events by a predeclared rule; cap one event position; fixed contract sizing and news slippage stress are new assumptions.",
+  "research_score": {
+    "total_100": 67,
+    "weights": {
+      "evidence_25": 25,
+      "net_after_costs_20": 20,
+      "intraday_rules_20": 20,
+      "risk_15": 15,
+      "data_10": 10,
+      "regime_10": 10
+    },
+    "components": {
+      "evidence_25": 18,
+      "net_after_costs_20": 11,
+      "intraday_rules_20": 18,
+      "risk_15": 5,
+      "data_10": 9,
+      "regime_10": 6
+    },
+    "meaning": "Research priority judgment; not probability of profitability"
+  },
+  "evidence_status": "Working paper, author event result after bid/ask",
+  "implementation_status": "RESEARCHED_NOT_BACKTESTED",
+  "special_case": "Eight historical 12:30 releases use 12:15 entry and 14:15 exit; verify timestamps and source EST/ET convention before implementation. Zero-return rule is unresolved."
+}

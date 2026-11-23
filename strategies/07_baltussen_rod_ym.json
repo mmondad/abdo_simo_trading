@@ -1,0 +1,63 @@
+{
+  "rank": 7,
+  "id": "baltussen_rod_ym",
+  "name": "Baltussen ROD YM",
+  "family_id": "baltussen_last_half_hour",
+  "instrument": "YM",
+  "instrument_source_match": "DIRECT_TEST_OR_AUTHOR_REBUILD",
+  "source": {
+    "title": "Hedging demand and market intraday momentum",
+    "authors": "Baltussen; Da; Lammers; Martens",
+    "year": 2021,
+    "type": "Journal of Financial Economics",
+    "url": "https://academicweb.nd.edu/~zda/intramom.pdf",
+    "source_markets": "ES, NQ, YM directly represented; portfolio of 60+ futures"
+  },
+  "session": "09:30–16:00 America/New_York research window",
+  "timezone": "America/New_York",
+  "timeframe": "M30",
+  "max_holding_duration": "30 min",
+  "mandatory_same_session_close": "Exit at 16:00 research-window close; operational order must finish before the close.",
+  "max_new_entries_per_day": 1,
+  "max_entry_rule_origin": "Selected research specification; one initial entry, no same-day re-entry. This cap is not an observed frequency.",
+  "observed_trade_frequency": "NOT REPORTED for this exact selected specification",
+  "source_rules": {
+    "indicator": "Return r_ROD = price 30 minutes before the defined research close / prior research-window close − 1. Trade sign for the final half hour.",
+    "buy": "At 15:30 of the paper session, enter long if r_ROD > 0.",
+    "sell_short": "At 15:30 of the paper session, enter short if r_ROD <= 0.",
+    "exit": "Exit at 16:00 research-window close; operational order must finish before the close.",
+    "stop_loss": "NOT SPECIFIED",
+    "take_profit": "NOT SPECIFIED",
+    "position_sizing": "Source uses equal-weighted 1/N portfolio; single-contract sizing is an untested implementation assumption.",
+    "cost_treatment": "Gross portfolio results only; YM-specific net result NOT REPORTED."
+  },
+  "source_reported_performance": "Equity-futures 1/N portfolio: gross annual return 6.86%, Sharpe 1.73; YM individual ROD predictive OOS R² 2.18%, not a YM trading P&L.",
+  "source_sample": "YM history in paper 1997-10-08–2020-05-01, with early standard contract extension.",
+  "independent_backtest_status": "NONE_IN_REPOSITORY",
+  "independent_evidence_note": "NOT VERIFIED",
+  "known_risks": "YM-specific execution costs unverified; source portfolio performance cannot be assigned to YM.",
+  "data_requirements": "Minute or quote data for the exact dated CME/CBOT contract, prior 16:00 research-window close, current 15:30 quote, and exit quote.",
+  "proposed_adaptations_not_source_validated": "Use exact dated contract, a volume-based roll chosen using the prior day, one position maximum, finish execution before the defined close, and test a stop separately. No CFD or micro-futures transfer is established.",
+  "research_score": {
+    "total_100": 63,
+    "weights": {
+      "evidence_25": 25,
+      "net_after_costs_20": 20,
+      "intraday_rules_20": 20,
+      "risk_15": 15,
+      "data_10": 10,
+      "regime_10": 10
+    },
+    "components": {
+      "evidence_25": 19,
+      "net_after_costs_20": 4,
+      "intraday_rules_20": 19,
+      "risk_15": 6,
+      "data_10": 8,
+      "regime_10": 7
+    },
+    "meaning": "Research priority judgment; not probability of profitability"
+  },
+  "evidence_status": "Peer-reviewed YM forecast OOS; no YM net P&L",
+  "implementation_status": "RESEARCHED_NOT_BACKTESTED"
+}

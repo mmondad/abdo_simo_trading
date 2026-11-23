@@ -1,0 +1,12 @@
+{
+  "config_version": "0.1.0",
+  "instrument": "EURUSD",
+  "date_range": {"start": "2020-01-01T00:00:00+00:00", "end": "2024-01-01T00:00:00+00:00"},
+  "data": {"source": "dukascopy", "timezone": "UTC"},
+  "account": {"initial_capital": 10000, "currency": "USD", "position_sizing": {"method": "fixed_fraction", "value": 0.01}},
+  "costs": {"spread": 0.8, "commission": 0, "slippage": 0},
+  "execution": {"signal_timing": "completed_candle", "order_timing": "next_eligible_opportunity", "intrabar_ambiguity": "stop_first"},
+  "instrument_spec": {"price_decimals": 5, "pip_size": 0.0001},
+  "position_limits": {"maximum": 1},
+  "data_quality": {"reject_duplicate_timestamps": true, "allow_gaps": false}
+}

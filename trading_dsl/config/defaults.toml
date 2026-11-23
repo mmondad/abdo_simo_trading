@@ -1,0 +1,35 @@
+# All values in this file are provisional project defaults, never paper-derived facts.
+
+[assumptions]
+# CONFIGURABLE DEFAULT: Conventional RSI period; applied only by the explicit RSI rule.
+rsi_period = 14
+# CONFIGURABLE DEFAULT: Indicators without a timeframe inherit the strategy base timeframe.
+inherit_indicator_timeframe = true
+# CONFIGURABLE DEFAULT: Close is the least ambiguous completed-candle input for single-input indicators.
+indicator_source = "close"
+
+[execution]
+# CONFIGURABLE DEFAULT: Avoid accidental exposure multiplication.
+max_simultaneous_positions = 1
+# CONFIGURABLE DEFAULT: Repeated entries do not add to an existing position.
+pyramiding = false
+# CONFIGURABLE DEFAULT: Opposing positions are not opened automatically.
+hedging = false
+# CONFIGURABLE DEFAULT: Evaluate exits before entries at the same timestamp.
+processing_order = "exit_before_entry"
+# CONFIGURABLE DEFAULT: A signal never automatically reverses an open position.
+automatic_reversal = false
+# CONFIGURABLE DEFAULT: When a bar could hit both stop and target, assume the adverse outcome.
+intrabar_ambiguity = "stop_first"
+# CONFIGURABLE DEFAULT: Signals use completed candles only.
+signal_timing = "completed_candle"
+# CONFIGURABLE DEFAULT: Orders wait for the next eligible opportunity.
+order_timing = "next_eligible_opportunity"
+
+[backtest]
+# CONFIGURABLE DEFAULT: Dukascopy is the initial provider but the schema is provider-independent.
+data_source = "dukascopy"
+# CONFIGURABLE DEFAULT: UTC avoids ambiguous cross-market timestamp interpretation.
+timezone = "UTC"
+# CONFIGURABLE DEFAULT: Neutral example account value; real experiments must set their own capital.
+initial_capital = 10000.0

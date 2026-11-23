@@ -1,0 +1,14 @@
+{
+  "description": "Deterministic mutations of examples/valid/ema_crossover.json used as invalid strategy examples.",
+  "base_strategy": "../valid/ema_crossover.json",
+  "cases": [
+    {"name": "unknown_indicator", "operation": "replace", "path": "/indicators/0/type", "value": "MAGIC", "expected_code": "UNKNOWN_INDICATOR"},
+    {"name": "unknown_operator", "operation": "replace", "path": "/signals/long/entry/operator", "value": "approximately", "expected_code": "UNKNOWN_OPERATOR"},
+    {"name": "invalid_parameter_type", "operation": "replace", "path": "/indicators/0/parameters/period", "value": "twenty", "expected_code": "INVALID_PARAMETER_TYPE"},
+    {"name": "missing_essential_exit", "operation": "remove", "path": "/signals/long/exit", "expected_code": "MISSING_EXIT"},
+    {"name": "negative_historical_offset", "operation": "add", "path": "/signals/long/entry/operands/0/offset", "value": -1, "expected_code": "SCHEMA_VIOLATION"},
+    {"name": "invalid_timeframe", "operation": "replace", "path": "/market/base_timeframe", "value": "hourly", "expected_code": "INVALID_TIMEFRAME"},
+    {"name": "unsupported_chart_pattern", "operation": "replace-expression", "path": "/signals/long/entry", "value": {"pattern": "head_and_shoulders"}, "expected_code": "UNSUPPORTED_CHART_PATTERN"},
+    {"name": "unresolved_reference", "operation": "replace", "path": "/signals/long/entry/operands/0/indicator_ref", "value": "missing", "expected_code": "UNRESOLVED_REFERENCE"}
+  ]
+}
