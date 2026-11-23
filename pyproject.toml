@@ -16,7 +16,7 @@ trading-dsl-validate = "trading_dsl.cli:main"
 test = ["pytest>=8"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["src/tests"]
 pythonpath = ["src"]
 
 [tool.setuptools.package-data]
